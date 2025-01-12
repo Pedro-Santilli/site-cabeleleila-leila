@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Agendamento</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/edit.css') }}">
+</head>
+<body>
+    <h1>Editar Agendamento</h1>
+    {% set mensagens = get_flashed_messages(with_categories=True) %}
+        {% if mensagens %}
+            <div>
+                {% for categoria, msg in mensagens %}
+                    {% if categoria == 'editar' %}
+                        <p>{{ msg }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    <form method="POST" action="/edit">
+        <label for="data_antiga">Data Atual:</label>
+        <input type="date" id="data_antiga" name="data_antiga" value="{{ row.data }}">
+        <label for="horario_antigo">Horário Atual:</label>
+        <input type="time" id="horario_antigo" name="horario_antigo" value="{{ row.horario }}">
+        <label for="nova_data">Nova Data:</label>
+        <input type="date" id="nova_data" name="nova_data">
+        <label for="novo_horario">Novo Horário:</label>
+        <input type="time" id="novo_horario" name="novo_horario">
+        <button type="submit">Salvar</button>
+    </form>
+    <a href="/ver-agendamentos">Voltar</a>
+    
+</body>
+</html>

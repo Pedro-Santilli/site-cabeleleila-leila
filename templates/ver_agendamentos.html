@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Agendamentos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ver_agendamentos.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Agendamentos</h1>
+        {% set mensagens = get_flashed_messages(with_categories=True) %}
+        {% if mensagens %}
+            <div>
+                {% for categoria, msg in mensagens %}
+                    {% if categoria == 'agendamento' %}
+                        <p>{{ msg }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Serviço</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row['data'] }}</td>
+                    <td>{{ row['horario'] }}</td>
+                    <td>{{ row['servico'] }}</td>
+                    <td><a href="{{ url_for('agendamento.edit', data=row['data'], horario=row['horario']) }}" class="btn btn-primary">Editar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="/agendamento">Voltar</a>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento de Horários</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/agendamento.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>Cabeleleila Leila</h1>
+        <h2>Salão de Beleiza</h2>
+    </div>
+
+    <div class="login-container">
+        <h2>Agendar Horário</h2>
+        {% set mensagens = get_flashed_messages(with_categories=True) %}
+            {% if mensagens %}
+                <div>
+                    {% for categoria, msg in mensagens %}
+                        {% if categoria == 'agendamento' %}
+                            <p>{{ msg }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        <form action="/agendamento" method="POST">
+            
+            <label for="data">Data</label>
+            <input type="date" id="data" name="data" required>
+            
+            <label for="horario">Horário</label>
+            <input type="time" id="horario" name="horario" required>
+            
+            <label for="servico">Serviço</label>
+            <select id="servico" name="servico" required>
+                <option value="corte">Corte de Cabelo</option>
+                <option value="pintura">Pintura</option>
+                <option value="escova">Escova</option>
+                <option value="tratamento">Tratamento Capilar</option>
+                <option value="outro">Outro</option>
+            </select>
+
+            <input type="submit" value="Agendar">
+        </form>
+        
+        <div class="cadastro">
+            <a href="/">Voltar para o início</a>
+            <a href="/ver-agendamentos">Ver meus agendamentos</a>
+        </div>
+    </div>
+
+</body>
+</html>
